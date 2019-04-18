@@ -182,7 +182,7 @@ namespace WalkingTec.Mvvm.Core
 
                 P entity = null;
                 //说明主表信息为空
-                if (string.IsNullOrEmpty(mainValString))
+                if (string.IsNullOrEmpty(mainValString) && EntityList.Count > 0)
                 {
                     entity = EntityList.LastOrDefault();
                 }
@@ -248,11 +248,14 @@ namespace WalkingTec.Mvvm.Core
                 }
                 entity.ExcelIndex = item.ExcelIndex;
                 var cinfo = this.SetDuplicatedCheck();
-                if (IsUpdateRecordDuplicated(cinfo, entity) == false)
+                if (!ErrorListVM.EntityList.Exists(p => p.Index == item.ExcelIndex))
                 {
-                    if (isMainData)
+                    if (IsUpdateRecordDuplicated(cinfo, entity) == false)
                     {
-                        EntityList.Add(entity);
+                        if (isMainData)
+                        {
+                            EntityList.Add(entity);
+                        }
                     }
                 }
             }
