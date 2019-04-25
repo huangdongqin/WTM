@@ -54,7 +54,7 @@ namespace WalkingTec.Mvvm.Core.Extensions
                     }
                 }
             }
-            return $"[{sb.ToString()}]";
+            return $"[{sb.ToString().Replace("\t","")}]";
         }
 
         private static string GetFormatResult(BaseVM vm, ColumnFormatInfo info)
